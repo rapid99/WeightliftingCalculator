@@ -57,6 +57,8 @@ namespace WeightliftingCalculator
                         Console.WriteLine($"2.5lb sets: {twoFiveSets?.SetCount ?? 0} (Total weight: {(twoFiveSets == null ? 0 : twoFiveSets.SetWeight * twoFiveSets.SetCount)} lbs)");
 
                         Console.WriteLine("-----------");
+                        Console.WriteLine($"Barbell weight: {plateCalculator.BarbellWeight} lbs");
+                        Console.WriteLine("-----------");
 
                         // total possible weight with plates + the barberll
                         var totalWeightAchieved = plateSetResult.Sum(w => w.SetWeight * w.SetCount) + plateCalculator.BarbellWeight;
