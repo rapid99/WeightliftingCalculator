@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Serilog;
+
 using WeightliftingCalculator.Models;
 
 namespace WeightliftingCalculator
@@ -17,8 +19,13 @@ namespace WeightliftingCalculator
         /// </summary>
         public readonly int BarbellWeight;
 
-        public PlateCalculator()
+
+        readonly ILogger _logger;
+
+        public PlateCalculator(ILogger logger)
         {
+            _logger = logger;
+
             _availablePlates = new()
             {
                 new PlateSet { PlateWeight = 45, SetCount = 0 },
@@ -41,6 +48,8 @@ namespace WeightliftingCalculator
         {
             try
             {
+                _logger.Information("Weight requested: {totalWeight}", totalWeight);
+
                 // Remove the barbell weight from the total to get the actual weight needed from just the plates
                 var weightNeeded = totalWeight - BarbellWeight;
 
@@ -54,14 +63,17 @@ namespace WeightliftingCalculator
                     }
 
                     if (plate.SetCount >= 1)
+                    {
                         plateSet.Add(plate);
+                        _logger.Information("Plate set added to barbell: {plateWeight}", plate.PlateWeight);
+                    }
                 }
 
                 return plateSet;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                var xx = e;
+                _logger.Error(ex, "Unexpected error calculating Plate sets: {errorMessage}", ex.Message);
                 throw;
             }
         }
