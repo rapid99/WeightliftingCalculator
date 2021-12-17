@@ -38,6 +38,7 @@ namespace WeightliftingCalculator
                         Console.WriteLine("-----------");
                         Console.WriteLine("Plate sets:");
                         Console.WriteLine("-----------");
+
                         var fortyFiveSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 45);
                         Console.WriteLine($"45lb sets: {fortyFiveSets?.SetCount ?? 0} (Total weight: {(fortyFiveSets == null ? 0 : fortyFiveSets.SetWeight * fortyFiveSets.SetCount)} lbs)");
 
@@ -60,7 +61,7 @@ namespace WeightliftingCalculator
                         Console.WriteLine($"Barbell weight: {plateCalculator.BarbellWeight} lbs");
                         Console.WriteLine("-----------");
 
-                        // total possible weight with plates + the barberll
+                        // total possible weight with plates + the barbell
                         var totalWeightAchieved = plateSetResult.Sum(w => w.SetWeight * w.SetCount) + plateCalculator.BarbellWeight;
                         Console.WriteLine($"Total Weight Achieved: {totalWeightAchieved} lbs");
                         Console.WriteLine($"Difference between requested weight and acheived weight: {totalWeightAchieved - requestedWeightParsed} lbs");
@@ -87,7 +88,7 @@ namespace WeightliftingCalculator
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.File(@"C:\WeightLiftingCalculator\WeightliftingCalculator.log", LogEventLevel.Debug)
+                .WriteTo.File(@"C:\WeightLiftingCalculator\WeightliftingCalculator.log")
                 .CreateLogger();
         }
     }
