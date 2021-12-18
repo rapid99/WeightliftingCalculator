@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using Serilog;
-using Serilog.Events;
+using WeightliftingCalculator.App;
 
 namespace WeightliftingCalculator
 {
@@ -10,7 +9,7 @@ namespace WeightliftingCalculator
     {
         static void Main()
         {
-            SetupLogging();
+            var logger = Logger.SetupLogger();
 
             try
             {
@@ -32,7 +31,7 @@ namespace WeightliftingCalculator
                     else
                     {
                         validWeightInput = true;
-                        var plateCalculator = new PlateCalculator(Log.Logger);
+                        var plateCalculator = new PlateCalculator(logger);
                         var plateSetResult = plateCalculator.CalculatePlates(requestedWeightParsed);
 
                         Console.WriteLine("-----------");
@@ -77,19 +76,8 @@ namespace WeightliftingCalculator
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "Unexpected error: {errorMessage}", ex.Message);
+                logger.Error(ex, "Unexpected error: {errorMessage}", ex.Message);
             }     
-        }
-
-        /// <summary>
-        /// Initialize Serilog file logger
-        /// </summary>
-        static void SetupLogging()
-        {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File(@"C:\WeightLiftingCalculator\WeightliftingCalculator.log")
-                .CreateLogger();
         }
     }
 }

@@ -10,6 +10,11 @@ namespace WeightliftingCalculator
     public class PlateCalculator
     {
         /// <summary>
+        /// A Serilog file logger
+        /// </summary>
+        readonly ILogger _logger;
+
+        /// <summary>
         /// List of all possible plate weights
         /// </summary>
         readonly List<PlateSet> _availablePlates;
@@ -20,7 +25,6 @@ namespace WeightliftingCalculator
         public readonly int BarbellWeight;
 
 
-        readonly ILogger _logger;
 
         public PlateCalculator(ILogger logger)
         {
@@ -65,7 +69,7 @@ namespace WeightliftingCalculator
                     if (plate.SetCount >= 1)
                     {
                         plateSet.Add(plate);
-                        _logger.Information("Plate set added to barbell: {plateWeight}", plate.PlateWeight);
+                        _logger.Information("({plateSetCount}) {plateWeight} lbs plate set(s) added to barbell", plate.SetCount, plate.PlateWeight);
                     }
                 }
 

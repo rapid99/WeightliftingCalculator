@@ -1,8 +1,8 @@
 using System.Linq;
 
-using Serilog;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using WeightliftingCalculator.App;
 
 namespace WeightliftingCalculator.Tests
 {
@@ -10,23 +10,10 @@ namespace WeightliftingCalculator.Tests
     public class PlateCalculatorTests
     {
 
-        /// <summary>
-        /// Initialize Serilog file logger
-        /// </summary>
-        static ILogger SetupLogging()
-        {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File(@"C:\WeightLiftingCalculator\WeightliftingCalculator.log")
-                .CreateLogger();
-
-            return Log.Logger;
-        }
-
         [TestMethod]
         public void Requested_Weight_Divisible_By_5_Returns_Exact_Weight()
         {
-            var plateCalculator = new PlateCalculator(SetupLogging());
+            var plateCalculator = new PlateCalculator(Logger.SetupLogger());
             var requestedWeight = 265;
 
             var plateSetResult = plateCalculator.CalculatePlates(requestedWeight);
@@ -40,7 +27,7 @@ namespace WeightliftingCalculator.Tests
         [TestMethod]
         public void Requested_Weight_Not_Divisible_By_5_Returns_Difference()
         {
-            var plateCalculator = new PlateCalculator(SetupLogging());
+            var plateCalculator = new PlateCalculator(Logger.SetupLogger());
             var requestedWeight = 312;
 
             var plateSetResult = plateCalculator.CalculatePlates(requestedWeight);
