@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Serilog;
+
 using WeightliftingCalculator.App;
 
 namespace WeightliftingCalculator
@@ -9,15 +11,23 @@ namespace WeightliftingCalculator
     {
         static void Main()
         {
-            var logger = Logger.SetupLogger();
+            Console.WriteLine("Weightlifting Calculator");
+            Console.WriteLine("Created by Matt Hynes");
+            Console.WriteLine("-----------");
+            Console.WriteLine("Enter a weight and the calculator will provide the number of each plate sets that are needed to satisfy the weight entered.");
 
+            InitializePlateCalculator(new LoggingService().Logger);
+        }
+
+        /// <summary>
+        /// Validates the user's input and runs the main Plate Calculator program
+        /// </summary>
+        /// <param name="logger"></param>
+        static void InitializePlateCalculator(ILogger logger)
+        {
             try
             {
-                Console.WriteLine("Weightlifting Calculator");
-                Console.WriteLine("Created by Matt Hynes");
-                Console.WriteLine("-----------");
-                Console.WriteLine("Enter a weight and the calculator will provide the number of each plate sets that are needed to satisfy the weight entered.");
-                Console.WriteLine("Weight: ");
+                Console.WriteLine("Total Desired Weight: ");
                 var requestedWeight = Console.ReadLine();
                 var validWeightInput = false;
                 while (!validWeightInput)
@@ -25,7 +35,7 @@ namespace WeightliftingCalculator
                     if (!double.TryParse(requestedWeight, out var requestedWeightParsed))
                     {
                         Console.WriteLine("Invalid weight. Please try again.");
-                        Console.WriteLine("Weight: ");
+                        Console.WriteLine("Total Desired Weight: ");
                         requestedWeight = Console.ReadLine();
                     }
                     else
@@ -70,14 +80,15 @@ namespace WeightliftingCalculator
                         Console.WriteLine("Start over (Y/N)?");
                         var startOver = Console.ReadLine();
                         if (startOver.ToLower() == "y")
-                            Main();
+                            InitializePlateCalculator(logger);
                     }
                 }
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Unexpected error: {errorMessage}", ex.Message);
-            }     
+                logger.Error(ex, "Unexpected error calculating plate sets: {errorMessage}", ex.Message);
+                throw;
+            }       
         }
     }
 }

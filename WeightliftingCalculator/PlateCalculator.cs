@@ -17,30 +17,25 @@ namespace WeightliftingCalculator
         /// <summary>
         /// List of all possible plate weights
         /// </summary>
-        readonly List<PlateSet> _availablePlates;
+        readonly List<PlateSet> _availablePlates = new()
+        {
+            new PlateSet { PlateWeight = 45, SetCount = 0 },
+            new PlateSet { PlateWeight = 35, SetCount = 0 },
+            new PlateSet { PlateWeight = 25, SetCount = 0 },
+            new PlateSet { PlateWeight = 10, SetCount = 0 },
+            new PlateSet { PlateWeight = 5, SetCount = 0 },
+            new PlateSet { PlateWeight = 2.5, SetCount = 0 },
+        };
 
         /// <summary>
         /// Weight of the barbell (this will always be applied to the total weight)
         /// </summary>
-        public readonly int BarbellWeight;
-
+        public readonly int BarbellWeight = 45;
 
 
         public PlateCalculator(ILogger logger)
         {
             _logger = logger;
-
-            _availablePlates = new()
-            {
-                new PlateSet { PlateWeight = 45, SetCount = 0 },
-                new PlateSet { PlateWeight = 35, SetCount = 0 },
-                new PlateSet { PlateWeight = 25, SetCount = 0 },
-                new PlateSet { PlateWeight = 10, SetCount = 0 },
-                new PlateSet { PlateWeight = 5, SetCount = 0 },
-                new PlateSet { PlateWeight = 2.5, SetCount = 0 },
-            };
-
-            BarbellWeight = 45;
         }
 
         /// <summary>

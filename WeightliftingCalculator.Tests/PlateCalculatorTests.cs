@@ -2,8 +2,6 @@ using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using WeightliftingCalculator.App;
-
 namespace WeightliftingCalculator.Tests
 {
     [TestClass]
@@ -13,7 +11,7 @@ namespace WeightliftingCalculator.Tests
         [TestMethod]
         public void Requested_Weight_Divisible_By_5_Returns_Exact_Weight()
         {
-            var plateCalculator = new PlateCalculator(Logger.SetupLogger());
+            var plateCalculator = new PlateCalculator(new LoggingService().Logger);
             var requestedWeight = 265;
 
             var plateSetResult = plateCalculator.CalculatePlates(requestedWeight);
@@ -27,7 +25,7 @@ namespace WeightliftingCalculator.Tests
         [TestMethod]
         public void Requested_Weight_Not_Divisible_By_5_Returns_Difference()
         {
-            var plateCalculator = new PlateCalculator(Logger.SetupLogger());
+            var plateCalculator = new PlateCalculator(new LoggingService().Logger);
             var requestedWeight = 312;
 
             var plateSetResult = plateCalculator.CalculatePlates(requestedWeight);
