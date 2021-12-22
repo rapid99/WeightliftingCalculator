@@ -50,8 +50,8 @@ namespace WeightliftingCalculator
 
                         foreach (var plate in plateSetResult)
                         {
-                            var sets = plateSetResult.FirstOrDefault(w => w.PlateWeight == plate.PlateWeight);
-                            Console.WriteLine($"{plate.PlateWeight}lb sets: {sets?.SetCount ?? 0} (Total weight: {(sets == null ? 0 : sets.SetWeight * sets.SetCount)} lbs)");
+                            var plateSet = plateSetResult.FirstOrDefault(w => w.PlateWeight == plate.PlateWeight);
+                            Console.WriteLine($"{plate.PlateWeight}lb sets: {plateSet?.SetCount ?? 0} (Total weight: {(plateSet == null ? 0 : plateSet.SetWeight * plateSet.SetCount)} lbs)");
                         }                    
 
                         Console.WriteLine("-----------");
