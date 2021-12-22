@@ -5,11 +5,11 @@ namespace WeightliftingCalculator.Tests
     /// <summary>
     /// Initializes a Console Logger
     /// </summary>
-    public class LoggingService
+    public class LoggerFactory
     {
         public readonly ILogger Logger;
 
-        public LoggingService()
+        public LoggerFactory()
         {
             Logger = new LoggerConfiguration()
                .MinimumLevel.Debug()

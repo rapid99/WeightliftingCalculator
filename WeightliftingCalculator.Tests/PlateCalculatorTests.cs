@@ -11,7 +11,7 @@ namespace WeightliftingCalculator.Tests
         [TestMethod]
         public void Requested_Weight_Divisible_By_5_Returns_Exact_Weight()
         {
-            var plateCalculator = new PlateCalculator(new LoggingService().Logger);
+            var plateCalculator = new PlateCalculator(new LoggerFactory().Logger);
             var requestedWeight = 265;
 
             var plateSetResult = plateCalculator.CalculatePlates(requestedWeight);
@@ -25,7 +25,7 @@ namespace WeightliftingCalculator.Tests
         [TestMethod]
         public void Requested_Weight_Not_Divisible_By_5_Returns_Difference()
         {
-            var plateCalculator = new PlateCalculator(new LoggingService().Logger);
+            var plateCalculator = new PlateCalculator(new LoggerFactory().Logger);
             var requestedWeight = 312;
 
             var plateSetResult = plateCalculator.CalculatePlates(requestedWeight);

@@ -16,7 +16,7 @@ namespace WeightliftingCalculator
             Console.WriteLine("-----------");
             Console.WriteLine("Enter a weight and the calculator will provide the number of each plate sets that are needed to satisfy the weight entered.");
 
-            InitializePlateCalculator(new LoggingService().Logger);
+            InitializePlateCalculator(new LoggerFactory().Logger);
         }
 
         /// <summary>
@@ -48,23 +48,11 @@ namespace WeightliftingCalculator
                         Console.WriteLine("Plate sets:");
                         Console.WriteLine("-----------");
 
-                        var fortyFiveSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 45);
-                        Console.WriteLine($"45lb sets: {fortyFiveSets?.SetCount ?? 0} (Total weight: {(fortyFiveSets == null ? 0 : fortyFiveSets.SetWeight * fortyFiveSets.SetCount)} lbs)");
-
-                        var thirtyFiveSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 35);
-                        Console.WriteLine($"35lb sets: {thirtyFiveSets?.SetCount ?? 0} (Total weight: {(thirtyFiveSets == null ? 0 : thirtyFiveSets.SetWeight * thirtyFiveSets.SetCount)} lbs)");
-
-                        var twentyFiveSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 25);
-                        Console.WriteLine($"25lb sets: {twentyFiveSets?.SetCount ?? 0} (Total weight: {(twentyFiveSets == null ? 0 : twentyFiveSets.SetWeight * twentyFiveSets.SetCount)} lbs)");
-
-                        var tenSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 10);
-                        Console.WriteLine($"10lb sets: {tenSets?.SetCount ?? 0} (Total weight: {(tenSets == null ? 0 : tenSets.SetWeight * tenSets.SetCount)} lbs)");
-
-                        var fiveSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 5);
-                        Console.WriteLine($"5lb sets: {fiveSets?.SetCount ?? 0} (Total weight: {(fiveSets == null ? 0 : fiveSets.SetWeight * fiveSets.SetCount)} lbs)");
-
-                        var twoFiveSets = plateSetResult.FirstOrDefault(w => w.PlateWeight == 2.5);
-                        Console.WriteLine($"2.5lb sets: {twoFiveSets?.SetCount ?? 0} (Total weight: {(twoFiveSets == null ? 0 : twoFiveSets.SetWeight * twoFiveSets.SetCount)} lbs)");
+                        foreach (var plate in plateSetResult)
+                        {
+                            var sets = plateSetResult.FirstOrDefault(w => w.PlateWeight == plate.PlateWeight);
+                            Console.WriteLine($"{plate.PlateWeight}lb sets: {sets?.SetCount ?? 0} (Total weight: {(sets == null ? 0 : sets.SetWeight * sets.SetCount)} lbs)");
+                        }                    
 
                         Console.WriteLine("-----------");
                         Console.WriteLine($"Barbell weight: {plateCalculator.BarbellWeight} lbs");

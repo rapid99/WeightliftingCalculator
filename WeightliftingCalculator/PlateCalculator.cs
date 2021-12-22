@@ -52,7 +52,7 @@ namespace WeightliftingCalculator
                 // Remove the barbell weight from the total to get the actual weight needed from just the plates
                 var weightNeeded = totalWeight - BarbellWeight;
 
-                var plateSet = new List<PlateSet>();
+                var plateSets = new List<PlateSet>();
                 foreach (var plate in _availablePlates)
                 {
                     while (weightNeeded >= plate.SetWeight)
@@ -63,12 +63,12 @@ namespace WeightliftingCalculator
 
                     if (plate.SetCount >= 1)
                     {
-                        plateSet.Add(plate);
+                        plateSets.Add(plate);
                         _logger.Information("({plateSetCount}) {plateWeight} lbs plate set(s) added to barbell", plate.SetCount, plate.PlateWeight);
                     }
                 }
 
-                return plateSet;
+                return plateSets;
             }
             catch (Exception ex)
             {
